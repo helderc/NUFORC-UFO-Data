@@ -6,3 +6,5 @@ Here you can find the data scraped from [NUFORC](http://www.nuforc.org/) web pag
 Also you can find the code used to scrap the related data.
 
 The data is in a raw format, as was downloaded.
+
+DOI for this repository: [![DOI](https://zenodo.org/badge/412124771.svg)](https://zenodo.org/badge/latestdoi/412124771)
