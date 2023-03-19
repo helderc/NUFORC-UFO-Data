@@ -13,7 +13,7 @@ from datetime import datetime as dt
 from bs4 import BeautifulSoup
 
 
-root_url = 'http://www.nuforc.org/webreports/ndxevent.html'
+root_url = 'https://nuforc.org/webreports/ndxevent.html'
 
 
 page = urllib.request.urlopen(root_url)
@@ -25,8 +25,10 @@ bs = BeautifulSoup(page, 'html.parser')
 # get the initial list of month/year available
 link_list = []
 for link in bs.find_all('a', href=True):
+    
     if 'ndxe' in link['href']:
-        full_link = 'http://www.nuforc.org/webreports/{}'.format(link['href'])
+        #print(link['href'])
+        full_link = 'https://nuforc.org/webreports/{}'.format(link['href'])
         link_list.append(full_link)
         
 
@@ -37,17 +39,19 @@ with open(fn_final, 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)
     
     for link in link_list:
+        #print(link)
         page = urllib.request.urlopen(link)
         bs = BeautifulSoup(page, 'html.parser')
         
         for l in bs.find_all('tr'):
             tmp_list = []
             
-            for m in l.find_all('font'):
-                tmp_list.append(m.text)
-                
+            #print(l)
+            for m in l.find_all('td'):
+                tmp_list.append(m.text.encode('UTF-8'))
+
+            print(tmp_list[:4])    
             writer.writerow(tmp_list)
-            print(tmp_list[:4])
             
         time.sleep(2)
         
